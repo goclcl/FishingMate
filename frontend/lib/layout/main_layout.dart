@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/location_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -82,7 +83,7 @@ class _MainLayoutState extends State<MainLayout> {
         ),
       ),
       body: <Widget>[
-        const Center(child: Text('Home Page')),
+        LocationScreen(),
         const Center(child: Text('환경 정보 페이지')),
         const Center(child: Text('낚시 포인트 페이지')),
         const Center(child: Text('기록 페이지')),
