@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/location_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -100,7 +99,7 @@ class _MainLayoutState extends State<MainLayout> {
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            label: '홈',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.eco),
