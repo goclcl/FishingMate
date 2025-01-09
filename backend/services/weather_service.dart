@@ -9,7 +9,7 @@ class WeatherService {
     final url = 'https://api.openweathermap.org/data/2.5/weather'
         '?lat=$latitude&lon=$longitude&appid=$apiKey';
 
-    final response = await dio.get<Response<dynamic>>(url);
+    final response = await dio.get(url);
 
     // 응답 데이터를 Map 형식으로 반환
     if (response.statusCode == 200) {
