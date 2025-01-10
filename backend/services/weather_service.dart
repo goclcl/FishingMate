@@ -11,7 +11,7 @@ class WeatherService {
 
     final response = await dio.get(url);
 
-    // 응답 데이터를 Map 형식으로 반환
+    // 응답 데이터를 Map으로 반환
     if (response.statusCode == 200) {
       return response.data! as Map<String, dynamic>;
     } else {
