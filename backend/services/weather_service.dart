@@ -4,8 +4,9 @@ import '../utils/environment.dart';
 final dio = Dio();
 
 class WeatherService {
-  static Future<dynamic> getWeather(double latitude, double longitude) async {
-    const apiKey = Environment.apiKey; // OpenWeather API 키
+  static Future<Map<String, dynamic>> getWeather(
+      double latitude, double longitude) async {
+    const apiKey = Environment.weatherApiKey; // OpenWeather API 키
     final url = 'https://api.openweathermap.org/data/2.5/weather'
         '?lat=$latitude&lon=$longitude&appid=$apiKey';
 

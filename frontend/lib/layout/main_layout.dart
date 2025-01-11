@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/environment_screen.dart';
+import '../screens/home_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -41,7 +42,7 @@ class _MainLayoutState extends State<MainLayout> {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Home'),
+              title: const Text('홈'),
               onTap: () {
                 setState(() {
                   currentPageIndex = 0;
@@ -83,8 +84,8 @@ class _MainLayoutState extends State<MainLayout> {
         ),
       ),
       body: <Widget>[
+        const TideScreen(),
         const WeatherScreen(),
-        const Center(child: Text('환경 정보 페이지')),
         const Center(child: Text('낚시 포인트 페이지')),
         const Center(child: Text('기록 페이지')),
       ][currentPageIndex],
