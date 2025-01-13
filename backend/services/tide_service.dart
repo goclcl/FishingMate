@@ -11,14 +11,13 @@ class TideService {
     const apiKey = Environment.khoaApiKey;
     final url = 'http://www.khoa.go.kr/api/oceangrid/tideObsPreTab/search.do'
         '?ServiceKey=$apiKey&ObsCode=$obsCode&Date=$date&ResultType=json';
-    print('$url');
     final response = await dio.get(url);
 
     // 응답 데이터를 Map으로 반환
     if (response.statusCode == 200) {
       try {
-        final data = jsonDecode(response.data) as Map<String, dynamic>;
-        print(data.runtimeType); // 확인용
+        final data =
+            jsonDecode(response.data as String) as Map<String, dynamic>;
         return data;
       } catch (e) {
         throw Exception('Failed to parse JSON: $e');

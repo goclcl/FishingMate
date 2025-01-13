@@ -1,28 +1,29 @@
 // ignore_for_file: cascade_invocations
 
 import 'package:cron/cron.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 
 import '../main.dart';
 import '../services/tide_service.dart';
+import '../services/fishingindex_service.dart';
 
 class TideScheduler {
   void start() {
     final cron = Cron();
 
     // 등록 시 첫 실행
-    _executeTask();
+    _tideTask();
+    _fishingindexTask();
 
     // 매일 자정에 실행
     cron.schedule(Schedule.parse('0 0 * * *'), () async {
-      await _executeTask();
+      await _tideTask();
+      await _fishingindexTask();
     });
   }
 
-  Future<void> _executeTask() async {
+  Future<void> _tideTask() async {
     final today = DateTime.now();
 
-    print('123');
     try {
       // 관측소 목록 가져오기
       final observatoriesCollection = mongoDb.collection('observatory');
@@ -46,9 +47,7 @@ class TideScheduler {
 
           if (exists == null) {
             // API 호출 및 데이터 삽입
-            print('111');
             final tideData = await TideService.getTide(dateString, obsCode);
-            print('$tideData');
 
             // JSON 파싱 및 유효성 검사
             final tideResult = tideData['result'];
@@ -87,8 +86,18 @@ class TideScheduler {
         }
       }
     } catch (e) {
-      print('여기임');
       print('Error occurred during tide data processing: $e');
     }
+  }
+
+  Future<void> _fishingindexTask() async {
+    final collection = mongoDb.collection('fishingindex');
+
+    // 모든 문서 삭제
+    await collection.deleteMany(<String, dynamic>{});
+
+    final fishingindexList = await FishingIndexService.getFishingIndex();
+
+    await collection.insertMany(fishingindexList);
   }
 }

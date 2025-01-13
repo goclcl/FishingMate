@@ -2,6 +2,8 @@ import 'package:dart_frog/dart_frog.dart';
 import '../../../main.dart';
 
 Future<Response> onRequest(RequestContext context) async {
+  print('FishingIndex route hit!');
+
   // Access the incoming request.
   final request = context.request;
 
@@ -14,14 +16,14 @@ Future<Response> onRequest(RequestContext context) async {
   }
 
   try {
-    // MongoDB에서 tide 컬렉션 가져오기
-    final tideCollection = mongoDb.collection('tide');
+    // MongoDB에서 fishingindex 컬렉션 가져오기
+    final collection = mongoDb.collection('fishingindex');
 
     // 컬렉션 전체 데이터 조회
-    final allTideData = await tideCollection.find().toList();
+    final allData = await collection.find().toList();
 
     // 데이터가 없을 경우 처리
-    if (allTideData.isEmpty) {
+    if (allData.isEmpty) {
       return Response(
         statusCode: 404,
         body: 'No data found in the tide collection',
@@ -29,7 +31,7 @@ Future<Response> onRequest(RequestContext context) async {
     }
 
     // 응답 반환
-    return Response.json(body: allTideData);
+    return Response.json(body: allData);
   } catch (e) {
     // 오류 처리
     return Response(

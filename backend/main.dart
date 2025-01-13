@@ -9,9 +9,6 @@ late final Db mongoDb;
 Future<void> init(InternetAddress ip, int port) async {
   const uri = 'mongodb://localhost:27017/fishing_mate';
 
-  // MongoDB 연결 설정
-  // mongoDb = Db('mongodb://localhost:27017/fishing_mate');
-  // await mongoDb.open();
   try {
     mongoDb = await Db.create(uri);
     await mongoDb.open();
